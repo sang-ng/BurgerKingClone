@@ -61,31 +61,35 @@ class LandingScreen extends StatelessWidget {
                                 "Unser Menü",
                                 style: TextStyle(
                                     color: COLOR_BEIGE,
-                                    fontFamily:
-                                        themeData.textTheme.headline4?.fontFamily,
-                                    fontSize:
-                                        themeData.textTheme.headline4?.fontSize),
+                                    fontFamily: themeData
+                                        .textTheme.headline4?.fontFamily,
+                                    fontSize: themeData
+                                        .textTheme.headline4?.fontSize),
                               )
                             ],
                           ),
                         ),
                         Expanded(
                             child: Padding(
-                              padding: sidePadding,
-                              child: GridView.count(
-                                physics: BouncingScrollPhysics(),
-                                  scrollDirection: Axis.vertical,
-                                  crossAxisCount: 2,
-                                  children: List.generate(8, (index) {
-                                    return CategoryItem();
-                                  })),
+                          padding: sidePadding,
+                          child: GridView.builder(
+                            itemCount: CATEGORIES.length,
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
                             ),
-                        ),
+                            itemBuilder: (BuildContext context, int index) {
+                              return CategoryItem(
+                                itemData: CATEGORIES[index],
+                              );
+                            },
+                          ),
+                        )),
                       ],
-
                     ),
                     addVerticalSpace(padding),
-
                   ],
                 ),
               ),
@@ -104,9 +108,9 @@ class CategoryItem extends StatelessWidget {
     final ThemeData themeData = Theme.of(context);
     const double padding = 25;
     return Container(
-      margin: EdgeInsets.all(8),
+      margin: const EdgeInsets.all(8),
       width: size.width * 0.4,
-      height: 200,
+      height: size.height * 0.35,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: const [
@@ -123,24 +127,31 @@ class CategoryItem extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: const Radius.circular(0),
-                bottomRight: Radius.circular(0),
-                topLeft: const Radius.circular(8),
-                topRight: Radius.circular(8),
+            Container(
+              decoration:  BoxDecoration(
+                  color: itemData["color"],
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    topRight: Radius.circular(8),
+                  )),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(0),
+                  bottomRight: Radius.circular(0),
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                ),
+                child: Image.asset(itemData["image"],
+                    width: double.infinity, height: 100, fit: BoxFit.cover),
               ),
-              child: Image.asset('assets/images/fastfood.png',
-                  width: double.infinity, height: 100, fit: BoxFit.cover),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: padding),
+            Expanded(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Burger',
+                    (itemData["name"]),
                     style: TextStyle(
                         fontFamily: themeData.textTheme.headline5?.fontFamily,
                         color: COLOR_BROWN,
