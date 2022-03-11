@@ -1,3 +1,5 @@
+import 'package:burgerking_clone/utils/colors.dart';
+import 'package:burgerking_clone/utils/text_theme.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
@@ -14,10 +16,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = window.physicalSize.width;
+
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(textTheme: defaultText),
-        home: LandingScreen(),);
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        textTheme: screenWidth < 500 ? smallText : defaultText,
+        scaffoldBackgroundColor: COLOR_BEIGE
+      ),
+      home: const LandingScreen(),
+    );
   }
 }
-
