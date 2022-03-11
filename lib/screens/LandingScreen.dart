@@ -1,10 +1,6 @@
 import 'package:burgerking_clone/utils/colors.dart';
-import 'package:flutter/material.dart';
 import 'package:burgerking_clone/utils/sample_data.dart';
-import 'package:burgerking_clone/utils/widget_functions.dart';
-import 'package:flutter/services.dart';
-
-import '../custom/category_item.dart';
+import 'package:flutter/material.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({Key? key}) : super(key: key);
@@ -15,6 +11,53 @@ class LandingScreen extends StatelessWidget {
     final ThemeData themeData = Theme.of(context);
     const double padding = 25;
     const sidePadding = EdgeInsets.symmetric(horizontal: padding);
+
+    Widget titleSection = Container(
+      color: COLOR_RED,
+      height: size.height * 0.06,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Unser Menü",
+            style: TextStyle(
+                color: COLOR_BEIGE,
+                fontFamily: themeData.textTheme.headline4?.fontFamily,
+                fontSize: themeData.textTheme.headline4?.fontSize),
+          )
+        ],
+      ),
+    );
+    Widget appBarButton = Padding(
+      padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
+      child: TextButton(
+          style: TextButton.styleFrom(
+            backgroundColor: COLOR_RED,
+            primary: COLOR_WHITE,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          ),
+          onPressed: () {},
+          child: const Text("zu MyBK")),
+    );
+    Widget gridView = Expanded(
+        child: Padding(
+      padding: sidePadding,
+      child: GridView.builder(
+        itemCount: CATEGORIES.length,
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+        ),
+        itemBuilder: (BuildContext context, int index) {
+          return CategoryItem(
+            itemData: CATEGORIES[index],
+          );
+        },
+      ),
+    ));
 
     return SafeArea(
         child: Scaffold(
@@ -27,70 +70,15 @@ class LandingScreen extends StatelessWidget {
               ),
               centerTitle: true,
               actions: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-                  child: TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: COLOR_RED,
-                        primary: COLOR_WHITE,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50)),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                      ),
-                      onPressed: () {},
-                      child: const Text("zu MyBK")),
-                )
+                appBarButton,
               ],
             ),
             body: SizedBox(
               width: size.width,
               height: size.height,
               child: Container(
-                child: Stack(
-                  children: [
-                    Column(
-                      children: [
-                        Container(
-                          color: COLOR_RED,
-                          height: size.height * 0.06,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Unser Menü",
-                                style: TextStyle(
-                                    color: COLOR_BEIGE,
-                                    fontFamily: themeData
-                                        .textTheme.headline4?.fontFamily,
-                                    fontSize: themeData
-                                        .textTheme.headline4?.fontSize),
-                              )
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                            child: Padding(
-                          padding: sidePadding,
-                          child: GridView.builder(
-                            itemCount: CATEGORIES.length,
-                            physics: const BouncingScrollPhysics(),
-                            scrollDirection: Axis.vertical,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                            ),
-                            itemBuilder: (BuildContext context, int index) {
-                              return CategoryItem(
-                                itemData: CATEGORIES[index],
-                              );
-                            },
-                          ),
-                        )),
-                      ],
-                    ),
-                    addVerticalSpace(padding),
-                  ],
+                child: Column(
+                  children: [titleSection, gridView],
                 ),
               ),
             )));
@@ -128,7 +116,7 @@ class CategoryItem extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             Container(
-              decoration:  BoxDecoration(
+              decoration: BoxDecoration(
                   color: itemData["color"],
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(8),
