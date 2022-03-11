@@ -1,3 +1,4 @@
+import 'package:burgerking_clone/screens/ProductScreen.dart';
 import 'package:burgerking_clone/utils/colors.dart';
 import 'package:burgerking_clone/utils/text_theme.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         textTheme: screenWidth < 500 ? smallText : defaultText,
         scaffoldBackgroundColor: COLOR_BEIGE
       ),
-      home: const LandingScreen(),
+      home: const ProductScreen(),
     );
   }
 }
