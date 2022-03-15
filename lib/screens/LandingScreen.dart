@@ -1,3 +1,4 @@
+import 'package:burgerking_clone/screens/LoginScreen.dart';
 import 'package:burgerking_clone/utils/colors.dart';
 import 'package:burgerking_clone/utils/sample_data.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,10 @@ class LandingScreen extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()));
+          },
           child: const Text("zu MyBK")),
     );
     Widget gridView = Expanded(
@@ -130,7 +134,7 @@ class CategoryItem extends StatelessWidget {
                   topRight: Radius.circular(8),
                 ),
                 child: Image.asset(itemData["image"],
-                    width: double.infinity, height: 100, fit: BoxFit.cover),
+                    width: double.infinity, height: 120, scale: 0.5,),
               ),
             ),
             Expanded(

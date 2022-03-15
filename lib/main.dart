@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         textTheme: screenWidth < 500 ? smallText : defaultText,
         scaffoldBackgroundColor: COLOR_BEIGE
       ),
-      home: const LoginScreen(),
+      home: const LandingScreen(),
     );
   }
 }

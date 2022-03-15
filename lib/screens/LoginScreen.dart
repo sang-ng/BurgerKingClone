@@ -22,18 +22,6 @@ class LoginScreen extends StatelessWidget {
       child: Image.asset("assets/images/burger_logo.png"),
     );
 
-    Widget agbSection = Container(
-        child: Column(
-      children: [
-        Row(
-          children: [Checkbox()],
-        ),
-        Row(
-          children: [],
-        )
-      ],
-    ));
-
     Widget registrierung = SingleChildScrollView(
       padding: const EdgeInsets.only(top: padding * 2),
       physics: const BouncingScrollPhysics(),
@@ -84,10 +72,36 @@ class LoginScreen extends StatelessWidget {
               },
             ),
             addVerticalSpace(padding),
+            Container(
+              width: size.width,
+              decoration: const BoxDecoration(
+                  color: COLOR_RED,
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(15))),
+              child: TextButton(
+                onPressed: () {},
+                child: Text(
+                  "Jetzt registrieren",
+                  style: TextStyle(
+                      fontFamily:
+                      themeData.textTheme.headline6?.fontFamily,
+                      color: COLOR_WHITE,
+                      fontSize:
+                      themeData.textTheme.headline6?.fontSize),
+                ),
+              ),
+            )
           ],
         ),
       ),
     );
+
+    // Widget anmeldung = Container(
+    //   child: Row(children: [
+    //     TextFormField(),
+    //     TextButton(onPressed: onPressed, child: child)
+    //   ],),
+    // )
 
     Widget tabView = DefaultTabController(
         length: 2,
@@ -165,56 +179,9 @@ class LoginScreen extends StatelessWidget {
                     Expanded(child: tabView),
                   ],
                 ),
-                Positioned(
-                    bottom: padding,
-                    width: size.width,
-                    child: Padding(
-                      padding: sidePadding,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                            color: COLOR_RED,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15))),
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Jetzt registrieren",
-                            style: TextStyle(
-                                fontFamily:
-                                    themeData.textTheme.headline6?.fontFamily,
-                                color: COLOR_WHITE,
-                                fontSize:
-                                    themeData.textTheme.headline6?.fontSize),
-                          ),
-                        ),
-                      ),
-                    ))
+
               ],
             )));
   }
 }
 
-class Checkbox extends StatefulWidget {
-  const Checkbox({Key? key}) : super(key: key);
-
-  @override
-  State<Checkbox> createState() => _CheckboxState();
-}
-
-class _CheckboxState extends State<Checkbox> {
-  bool isChecked = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return CheckboxListTile(
-      title: const Text('Animate Slowly'),
-      value: timeDilation != 1.0,
-      onChanged: (bool? value) {
-        setState(() {
-          timeDilation = value! ? 10.0 : 1.0;
-        });
-      },
-      secondary: const Icon(Icons.hourglass_empty),
-    );
-  }
-}
